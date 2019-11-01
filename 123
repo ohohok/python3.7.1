@@ -1,0 +1,31 @@
+################################################################################
+##           Dockerfile to build ubuntu image with Python3.7    :xenial             ##
+################################################################################
+FROM ubuntu:16.04
+ # add与copy的区别，add覆盖所有copy的功能，并且可以实现解压，如下所示
+ADD Python-371.tgz /home/
+# 添加阿里云的源，加快构建
+RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list; \
+apt-get clean; \
+apt update; \
+apt -y install lsof; \
+apt -y install language-pack-zh-hans; \
+locale-gen en_US.UTF-8; \
+echo "export LC_ALL=en_US.UTF-8" >> /root/.bashrc; \
+apt -y install vim; \
+apt -y install net-tools; \
+apt -y install iputils-ping; \
+apt -y install build-essential; \
+apt -y install zlib1g-dev libbz2-dev libssl-dev libncurses5-dev libsqlite3-dev libreadline-dev tk-dev libgdbm-dev libdb-dev libpcap-dev xz-utils libexpat1-dev liblzma-dev libffi-dev libc6-dev; \
+echo `pwd` > /hello0.txt ; \
+cd /home/Python-3.7.1/ ; \
+echo `pwd` > /hello.txt ; \
+echo `ls -a` > /hello1.txt; \
+./configure --prefix=/usr/local/python3 --enable-optimizations; \
+make && make install; \
+echo `pwd` > /hello2.txt ; \
+echo `ls -a` > /hello3.txt; \
+ln -s /usr/local/bin/python3/bin/python3 /usr/bin/python3 ;\
+ln -s /usr/local/bin/pip /usr/bin/pip; \
+pip install pip -U; \
+pip config set global.index-url https://pypi.tuna.tsinghua.edu.cnd/simple
