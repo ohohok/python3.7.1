@@ -9,6 +9,8 @@ ENV PATH /usr/local/python3/bin:$PATH
 RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list ;\
 apt clean ;\
 apt update ;\
+apt -y install wget ;\
+apt -y install curl ;\
 apt -y install lsof ;\
 apt -y install language-pack-zh-hans ;\
 locale-gen en_US.UTF-8 ;\
@@ -18,6 +20,7 @@ apt -y install net-tools ;\
 apt -y install iputils-ping ;\
 apt -y install build-essential ;\
 apt -y install zlib1g-dev libbz2-dev libssl-dev libncurses5-dev libsqlite3-dev libreadline-dev tk-dev libgdbm-dev libdb-dev libpcap-dev xz-utils libexpat1-dev liblzma-dev libffi-dev libc6-dev ;\
+curl -s https://raw.githubusercontent.com/jy1779/docker/master/install/install_docker-compose.sh | bash ;\
 mkdir -p /usr/local/python3; \
 cd /home/Python-3.7.1/  ;\
 ./configure --prefix=/usr/local/python3 --enable-optimizations ;\
