@@ -4,6 +4,8 @@
 FROM ubuntu:16.04
  # add与copy的区别，add覆盖所有copy的功能，并且可以实现解压，如下所示
 ADD Python-3.7.1.tgz /home
+#COPY pip.conf /etc/pip.conf
+COPY pip.conf /root/.config/pip/pip.conf
 ENV PATH /usr/local/python3/bin:$PATH
 
 # 添加阿里云的源，加快构建
@@ -29,6 +31,6 @@ cd /home/Python-3.7.1/ ; \
 make ;  make install ; \
 ln -s /usr/local/python3/bin/python3.7 /usr/bin/python  ; \
 ln -s /usr/local/python3/bin/pip3 /usr/bin/pip ; \
-pip install pip -U ; \
+#pip install pip -U ; \
 rm -rf /home/Python-3.7.1/ ; \
-COPY pip.conf /root/.config/pip/pip.conf
+
